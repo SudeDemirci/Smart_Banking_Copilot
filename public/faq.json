@@ -1,0 +1,135 @@
+[
+  {
+    "id": "hesap-acma-belgeler",
+    "category": "Hesap İşlemleri",
+    "keywords": ["hesap aç", "hesap açmak", "hesap açma", "ne gerekiyor", "belge", "belgeler", "kimlik", "vadesiz"],
+    "question": "Hesap açmak için ne gerekiyor?",
+    "answer": "## 💳 Hesap Açma Gereksinimleri\n\nVadesiz hesap açmak için aşağıdaki belgeler gereklidir:\n\n- **Nüfus cüzdanı veya pasaport** (geçerli, asıl belge)\n- **Son 3 aya ait adres belgesi** (fatura, ikametgah belgesi)\n- **İmza beyannamesi** (şubede doldurulur)\n\n### 📍 Nasıl Açılır?\n- **Şubede**: Belgelerinizle herhangi bir şubemize gelin\n- **Mobil**: Uygulamamız üzerinden 5 dakikada açın (18+ ve TC kimlikli)\n\n**Minimum bakiye** gerekmemektedir. Hesabınız anında aktive edilir."
+  },
+  {
+    "id": "hesap-kapatma",
+    "category": "Hesap İşlemleri",
+    "keywords": ["hesap kapat", "hesap kapatma", "hesabı kapat", "hesabımı kapat"],
+    "question": "Hesabımı nasıl kapatabilirim?",
+    "answer": "## 🔒 Hesap Kapatma\n\nHesabınızı kapatmak için:\n\n1. **Şube ziyareti** gereklidir (online kapatma mevcut değildir)\n2. Kimliğinizle herhangi bir şubemize gelin\n3. Hesapta **sıfır bakiye** olmalıdır\n4. Otomatik ödemelerinizi önceden iptal edin\n\n**Not**: Vadeli hesaplar vade bitiminde kapatılabilir."
+  },
+  {
+    "id": "atm-limit",
+    "category": "Kart & ATM",
+    "keywords": ["atm", "limit", "çekim", "para çek", "günlük limit", "ne kadar çekebilirim", "atm'den", "atmden"],
+    "question": "ATM çekim limiti nedir?",
+    "answer": "## 🏧 ATM Çekim Limitleri\n\n| İşlem | Limit |\n|---|---|\n| Günlük ATM çekim | **5.000 TL** |\n| Tek seferlik çekim | **2.000 TL** |\n| Günlük POS harcama | **25.000 TL** |\n| Yurt dışı ATM çekim | **3.000 TL** |\n\n### ⬆️ Limit Artırma\nLimitinizi artırmak için:\n- Mobil uygulama → Kart İşlemleri → Limit Güncelle\n- Veya şubenize gelin\n\n**Anlık geçici limit artışı** da mobil uygulamadan yapılabilir."
+  },
+  {
+    "id": "kart-kayip",
+    "category": "Kart & ATM",
+    "keywords": ["kart kayıp", "kart çalındı", "kartı kaybettim", "kart iptal", "kartımı kaybettim", "kart bloke"],
+    "question": "Kartımı kaybettim, ne yapmalıyım?",
+    "answer": "## 🚨 Kayıp/Çalıntı Kart — Acil İşlemler\n\n### Hemen yapın:\n1. **Çağrı Merkezi**: 444 00 00 (7/24 açık)\n2. **Mobil Uygulama**: Kart → Kartı Dondur (anlık)\n3. **İnternet Bankacılığı**: Kart → Kayıp/Çalıntı Bildir\n\n### Sonraki Adımlar\n- Kartınız **anında bloke** edilir\n- Yeni kart **3-5 iş günü** içinde adresinize gelir\n- Şubeden **acil kart** talep edebilirsiniz\n\n**Şüpheli işlem görürseniz** hemen 444 00 00'ı arayın!"
+  },
+  {
+    "id": "kredi-basvuru",
+    "category": "Kredi",
+    "keywords": ["kredi", "kredi başvuru", "kredi başvurusu", "ihtiyaç kredisi", "kredi almak", "borç", "kredi çekmek"],
+    "question": "Kredi başvurusu nasıl yapılır?",
+    "answer": "## 💰 Kredi Başvurusu\n\n### İhtiyaç Kredisi\n- **Vade**: 6 – 84 ay\n- **Faiz**: Aylık %2,89'dan başlayan (değişken)\n- **Gerekli belgeler**: Nüfus cüzdanı, gelir belgesi (3 aylık maaş bordrosu)\n\n### Başvuru Kanalları\n- **Mobil uygulama** → Kredi → Hızlı Başvuru (en hızlı)\n- **İnternet bankacılığı** → Kredi Başvurusu\n- **Şube** → Kredi danışmanımızla görüşün\n\n### Süreç\n1. Başvuru → 2. Kredi skorlama → 3. Onay (dakikalar içinde) → 4. Hesaba yatırım\n\n**Not**: Kesin faiz oranı için mobil uygulamadan kişisel teklifinizi görün."
+  },
+  {
+    "id": "konut-kredisi",
+    "category": "Kredi",
+    "keywords": ["konut kredisi", "ev kredisi", "mortgage", "konut", "ev almak", "ev satın"],
+    "question": "Konut kredisi şartları nelerdir?",
+    "answer": "## 🏠 Konut Kredisi\n\n| Özellik | Detay |\n|---|---|\n| Maksimum vade | **120 ay (10 yıl)** |\n| Aylık faiz | **%3,25'ten başlayan** |\n| Minimum peşinat | **%20** |\n| Maksimum kredi | Konut değerinin **%80'i** |\n\n### Gerekli Belgeler\n- Nüfus cüzdanı\n- Gelir belgesi / vergi levhası\n- Tapu fotokopisi\n- Ekspertiz raporu (bankamızca ayarlanır)\n\n**Ücretsiz ön başvuru** için şubemize gelin veya 444 00 00'ı arayın."
+  },
+  {
+    "id": "eft-havale",
+    "category": "Para Transferi",
+    "keywords": ["eft", "havale", "para transfer", "para gönder", "para yolla", "transfer", "gönderme"],
+    "question": "Havale ve EFT nasıl yapılır?",
+    "answer": "## ↗️ Para Transferi\n\n### Havale (Aynı Banka)\n- **Ücret**: Ücretsiz\n- **Süre**: Anlık\n- **Limit**: 150.000 TL (anlık ödeme)\n\n### EFT (Farklı Banka)\n- **Ücret**: 10-25 TL (tutara göre)\n- **Saatler**: 09:00 – 17:30 (mesai saatleri)\n- **Süre**: Aynı gün\n\n### Anlık Ödeme (FAST)\n- **7/24** geçerli\n- **Limit**: 150.000 TL\n- **Ücret**: Düşük (uygulamada görüntüleyin)\n\n**IBAN ile** mobil uygulamadan kolayca yapabilirsiniz."
+  },
+  {
+    "id": "swift",
+    "category": "Para Transferi",
+    "keywords": ["swift", "yurt dışı", "döviz transfer", "uluslararası transfer", "abroad", "international"],
+    "question": "Yurt dışına para transferi (SWIFT) nasıl yapılır?",
+    "answer": "## 🌍 SWIFT / Uluslararası Transfer\n\n- **Süre**: 1-3 iş günü\n- **Minimum ücret**: 25 USD\n- **Gerekli bilgiler**: IBAN, SWIFT/BIC kodu, alıcı adı-adresi\n\n### Nasıl Yapılır?\n- Şubeye gelin (büyük tutarlar için önerilir)\n- İnternet bankacılığı → Dövizli İşlemler → SWIFT Transfer\n\n**Not**: 50.000 USD üzeri transferlerde ek belge gerekebilir."
+  },
+  {
+    "id": "faiz-orani",
+    "category": "Döviz & Faiz",
+    "keywords": ["faiz", "faiz oranı", "mevduat", "vadeli", "ne kadar faiz", "faiz kazanmak", "birikim"],
+    "question": "Vadeli mevduat faiz oranları nedir?",
+    "answer": "## 💹 Vadeli Mevduat Faiz Oranları\n\n| Vade | Yıllık Faiz |\n|---|---|\n| 1 Ay | **%45** |\n| 3 Ay | **%48** |\n| 6 Ay | **%52** |\n| 12 Ay | **%50** |\n\n**Not**: Bu oranlar değişkendir. Güncel ve kişiselleştirilmiş teklif için:\n- Mobil uygulama → Mevduat → Yeni Hesap Aç\n- Veya şubenizi arayın\n\n**Minimum tutar**: 1.000 TL"
+  },
+  {
+    "id": "doviz",
+    "category": "Döviz & Faiz",
+    "keywords": ["döviz", "kur", "dolar", "euro", "usd", "eur", "döviz hesabı", "döviz al", "kur ne"],
+    "question": "Döviz hesabı açabilir miyim?",
+    "answer": "## 💱 Döviz İşlemleri\n\n### Desteklenen Dövizler\nUSD 🇺🇸 | EUR 🇪🇺 | GBP 🇬🇧 | CHF 🇨🇭 | JPY 🇯🇵\n\n### Döviz Hesabı Açma\n- Mobil uygulama → Hesaplarım → Yeni Hesap → Döviz Hesabı\n- **Minimum bakiye** gerekmez\n\n### Anlık Kur\nGüncel kurlar için:\n- Mobil uygulama → Döviz\n- Web sitesi → Piyasalar\n\n**Altın hesabı** da açabilirsiniz (gram bazlı)."
+  },
+  {
+    "id": "mobil-uygulama",
+    "category": "Mobil Bankacılık",
+    "keywords": ["mobil", "uygulama", "app", "indir", "telefon", "android", "ios", "iphone", "mobil bankacılık"],
+    "question": "Mobil bankacılık uygulaması nasıl kullanılır?",
+    "answer": "## 📱 Mobil Bankacılık\n\n### İndirme\n- **App Store**: \"BankBot Mobil\" ara → İndir\n- **Google Play**: \"BankBot Mobil\" ara → Yükle\n- **Puan**: ⭐ 4.7/5\n\n### İlk Giriş\n1. TC kimlik no + müşteri no girin\n2. SMS ile gelen kodu doğrulayın\n3. 6 haneli şifrenizi belirleyin\n4. Biyometrik (yüz/parmak) aktive edin\n\n### Yapabilecekleriniz\n✅ Hesap görüntüleme | ✅ Transfer | ✅ Fatura ödeme\n✅ Kredi başvurusu | ✅ Kart işlemleri | ✅ Yatırım"
+  },
+  {
+    "id": "sigorta-bes",
+    "category": "Sigorta & Emeklilik",
+    "keywords": ["sigorta", "bes", "emeklilik", "bireysel emeklilik", "devlet katkısı", "birikim"],
+    "question": "Bireysel Emeklilik Sistemi (BES) nedir?",
+    "answer": "## 🛡️ Bireysel Emeklilik Sistemi (BES)\n\n### Devlet Katkısı\n- Yatırdığınız her **100 TL'ye 30 TL** devlet katkısı (**%30**)\n- Yıllık maksimum katkı: Asgari ücretin **%25'i kadar** kazanç\n\n### Avantajlar\n- Vergi avantajı (gelir vergisi matrahından indirim)\n- Birikiminiz yatırım fonlarında değerlenir\n- **10 yıl** sistemde kalarak emekli olabilirsiniz (56 yaş)\n\n### Başvuru\n- Şube → BES Danışmanı\n- Mobil uygulama → Emeklilik\n- **Minimum katkı payı**: 250 TL/ay"
+  },
+  {
+    "id": "yatirim-fonu",
+    "category": "Yatırım",
+    "keywords": ["yatırım", "fon", "hisse", "borsa", "yatırım fonu", "portföy", "eurobond", "hazine"],
+    "question": "Yatırım ürünleri neler?",
+    "answer": "## 📈 Yatırım Ürünleri\n\n### Fonlar\n- **A Tipi**: Hisse ağırlıklı, yüksek risk/getiri\n- **B Tipi**: Sabit getirili, düşük risk\n- **Para Piyasası Fonu**: Günlük getiri, çok düşük risk\n\n### Menkul Kıymetler\n- **Hisse Senedi**: Borsa İstanbul (BIST) üzerinden\n- **Tahvil/Bono**: Hazine bonosu, şirket tahvili\n- **Eurobond**: Döviz bazlı tahvil\n\n### Başlangıç\n- Mobil uygulama → Yatırım → Fon Al\n- **Minimum**: 10 TL'den başlar\n\n**Yatırım danışmanlığı** için şubenizi ziyaret edin."
+  },
+  {
+    "id": "cagri-merkezi",
+    "category": "Genel",
+    "keywords": ["telefon", "ara", "iletişim", "çağrı merkezi", "müşteri hizmetleri", "numara", "yardım", "destek"],
+    "question": "Müşteri hizmetleri numarası nedir?",
+    "answer": "## 📞 İletişim\n\n### Çağrı Merkezi\n**444 00 00** (7/24 Açık)\n\n### Diğer Kanallar\n- **E-posta**: musteri@bankbot.com.tr\n- **Canlı Destek**: Mobil uygulama → Destek → Sohbet\n- **Sosyal Medya**: @BankBot (Twitter/Instagram)\n\n### Şube\n- Yakın şube için: bankbot.com.tr/subeler\n- Harita üzerinden arama yapabilirsiniz"
+  },
+  {
+    "id": "kart-teslimat",
+    "category": "Kart & ATM",
+    "keywords": ["kaç gün", "ne zaman gelir", "kart gelir", "kart teslimat", "kart ne zaman", "yeni kart", "kart alabilirim", "kart gönder", "kartım ne zaman", "kaç günde kart"],
+    "question": "Kartım kaç günde gelir?",
+    "answer": "## Kart Teslimat Süresi\n\n- **Standart kart**: Başvurudan itibaren **3-5 iş günü** içinde adresinize teslim edilir\n- **Acil kart**: Şubemizden aynı gün teslim alabilirsiniz\n- **Yurt dışı adres**: 7-10 iş günü\n\n### Kargo Takibi\nKartınız kargoya verildiğinde SMS ve e-posta ile bilgilendirilirsiniz. Kargo takip numarası ile adresinize teslimat durumunu takip edebilirsiniz.\n\n**Teslimat yapılamadığında** kargo şubesinde 3 gün bekletilir. Bu süre içinde teslim alınmazsa iade edilir ve yeniden gönderim talep edebilirsiniz."
+  },
+  {
+    "id": "dijital-giris",
+    "category": "Dijital Bankacılık",
+    "keywords": ["internet bankacılığı", "online bankacılık", "web bankacılık", "şifre", "giriş", "giriş yapamıyorum", "nasıl giriş", "internet bankacılık", "mobil giriş", "şifremi unuttum", "giremiyorum"],
+    "question": "Mobil veya internet bankacılığına giriş yapamıyorum, ne yapmalıyım?",
+    "answer": "## 🔐 Dijital Kanallara Giriş\n\n**Adres**: bankbot.com.tr/giris veya **BankBot Mobil Uygulaması**\n\n### Giriş Sorunları ve Çözümleri\n\n1. **Şifremi Unuttum / Kilitlendi**\n- Giriş ekranındaki **\"Şifremi Unuttum\"** butonuna tıklayın.\n- Yeni şifre almak için kimlik bilgileriniz ve telefonunuza gelecek SMS kodunu girin.\n\n2. **İlk Kez Giriş Yapıyorsanız**\n- Müşteri numaranız ve TC kimlik numaranızla kayıt olun.\n- 6 haneli dijital şifrenizi belirleyin.\n\nSorun yaşamaya devam ederseniz Müşteri İletişim Merkezimizi (**444 00 00**) arayabilirsiniz."
+  },
+  {
+    "id": "sube-saatleri",
+    "category": "Genel",
+    "keywords": ["şube saati", "çalışma saati", "şube çalışma saatleri", "çalışma saatleri", "saat kaçta", "açık mı", "kaçta kapanır", "kaçta açılır", "mesai", "şube ne zaman"],
+    "question": "Şube çalışma saatleri nedir?",
+    "answer": "## Şube Çalışma Saatleri\n\n| Gün | Saat |\n|---|---|\n| Pazartesi – Cuma | 09:00 – 17:30 |\n| Cumartesi | Kapalı |\n| Pazar | Kapalı |\n\n**Özel şubeler** (AVM içi vb.) farklı saatlerde açık olabilir.\n\n### 7/24 Hizmetler\n- Mobil bankacılık\n- İnternet bankacılığı\n- ATM'ler\n- Çağrı Merkezi: **444 00 00**\n\nEn yakın şubeyi bulmak için: bankbot.com.tr/subeler"
+  },
+  {
+    "id": "banka-kartim-calisiyor",
+    "category": "Kart & ATM",
+    "keywords": ["kart çalışmıyor", "kart kabul edilmiyor", "pos'ta çalışmıyor", "kart geçmiyor", "kart takılı", "kartım bloke", "neden çalışmıyor"],
+    "question": "Kartım neden çalışmıyor?",
+    "answer": "## Kart Çalışmıyor\n\n### Olası Nedenler ve Çözümler\n\n**1. Yanlış PIN girişi**\nArt arda 3 hatalı giriş kartı bloke eder. Çağrı Merkezi (444 00 00) veya mobil uygulama üzerinden PIN sıfırlayabilirsiniz.\n\n**2. Günlük limit aşıldı**\nGünlük 5.000 TL ATM, 25.000 TL POS limitinizi kontrol edin. Mobil uygulamadan limit artırabilirsiniz.\n\n**3. Yurt dışı kullanım kapalı**\nMobil uygulama → Kart İşlemleri → Yurt Dışı Kullanım → Aktif et\n\n**4. Kart süresi dolmuş**\nKartınızın ön yüzündeki son kullanma tarihini kontrol edin.\n\nSorun devam ederse: **444 00 00**"
+  },
+  {
+    "id": "iban-nedir",
+    "category": "Para Transferi",
+    "keywords": ["iban", "iban nedir", "iban numarası", "iban öğren", "iban nerede", "hesap numarası"],
+    "question": "IBAN numaram nerede yazar?",
+    "answer": "## IBAN Numaranızı Öğrenin\n\nIBAN'ınızı şu kanallardan öğrenebilirsiniz:\n\n- **Mobil uygulama**: Hesaplarım → İlgili hesap → IBAN\n- **İnternet bankacılığı**: Hesaplarım → Hesap Detayı\n- **Dekont/Ekstre**: Hesap ekstrelerinizde yazar\n- **ATM**: ATM'den mini ekstre alabilirsiniz\n- **Çağrı Merkezi**: 444 00 00\n\nTürkiye'deki IBAN formatı: **TR** + 24 haneli numara (toplam 26 karakter)"
+  }
+]

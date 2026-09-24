@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BankBot – Kurumsal Analitik Dashboard</title>
+  <meta name="description" content="BankBot kullanım istatistikleri ve analitik paneli." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy-950:   #050d1a;
+      --navy-900:   #081428;
+      --navy-800:   #0d1f3c;
+      --navy-700:   #122548;
+      --navy-600:   #1a3260;
+      --gold-400:   #d4a853;
+      --gold-300:   #e0bc74;
+      --blue-500:   #2563eb;
+      --text-100:   #f1f5f9;
+      --text-300:   #cbd5e1;
+      --text-500:   #64748b;
+      --text-700:   #334155;
+      --border:     rgba(148, 163, 184, 0.08);
+      --border-md:  rgba(148, 163, 184, 0.14);
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--navy-950);
+      color: var(--text-100);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 0% 0%, rgba(37,99,235,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 100% 100%, rgba(212,168,83,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a { color: var(--gold-400); text-decoration: none; }
+    a:hover { color: var(--gold-300); }
+
+    /* ── Layout ── */
+    .page { max-width: 1100px; margin: 0 auto; padding: 32px 20px; position: relative; z-index: 1; }
+
+    /* ── Header ── */
+    .dash-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 36px; gap: 16px; flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .dash-title-group { display: flex; align-items: center; gap: 16px; }
+    .dash-logo {
+      width: 54px; height: 54px;
+      background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-700) 100%);
+      border: 1px solid var(--border-md);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    .dash-logo svg { width: 28px; height: 28px; }
+    
+    .dash-title { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; color: var(--text-100); }
+    .dash-sub   { font-size: 0.82rem; color: var(--gold-400); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .header-actions { display: flex; gap: 16px; align-items: center; }
+
+    .back-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px;
+      background: transparent;
+      border: 1px solid var(--border-md);
+      border-radius: 8px;
+      color: var(--text-300); font-size: 0.85rem; font-family: inherit; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.04); color: var(--text-100); border-color: rgba(212, 168, 83, 0.4); }
+
+    /* ── KPI Cards ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .kpi-card {
+      background: var(--navy-900);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      position: relative; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+    .kpi-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+    }
+    .kpi-card.blue::before  { background: var(--blue-500); }
+    .kpi-card.green::before { background: #22c55e; }
+    .kpi-card.gold::before  { background: var(--gold-400); }
+    .kpi-card.cyan::before  { background: #0ea5e9; }
+
+    .kpi-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .kpi-icon { width: 20px; height: 20px; opacity: 0.8; }
+    .kpi-value { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; color: var(--text-100); line-height: 1; margin-top: 4px; }
+    .kpi-label { font-size: 0.78rem; color: var(--text-300); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .kpi-sub   { font-size: 0.75rem; color: var(--text-500); }
+
+    /* ── Charts Row ── */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 768px) { .charts-row { grid-template-columns: 1fr; } }
+
+    .chart-card {
+      background: var(--navy-900);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .chart-title {
+      font-size: 0.95rem; font-weight: 600; color: var(--text-100);
+      margin-bottom: 24px; display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid var(--border); padding-bottom: 12px;
+    }
+    .chart-title svg { width: 18px; height: 18px; color: var(--gold-400); }
+
+    /* Donut */
+    .donut-wrap { display: flex; align-items: center; gap: 32px; }
+    .donut-canvas { flex-shrink: 0; }
+    .donut-legend { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+    .legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-md); }
+    .legend-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+    /* Bar */
+    .bar-list { display: flex; flex-direction: column; gap: 16px; }
+    .bar-item { display: flex; flex-direction: column; gap: 6px; }
+    .bar-header { display: flex; justify-content: space-between; align-items: center; }
+    .bar-label { font-size: 0.82rem; color: var(--text-300); font-weight: 500; }
+    .bar-count { font-size: 0.82rem; font-weight: 700; color: var(--text-100); }
+    .bar-track {
+      height: 6px; background: var(--navy-800);
+      border-radius: 99px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; border-radius: 99px;
+      transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── Activity Table ── */
+    .table-card {
+      background: var(--navy-900);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .table-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .table-header .chart-title { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+    table.activity-table {
+      width: 100%; border-collapse: collapse; font-size: 0.85rem;
+    }
+    .activity-table th {
+      text-align: left; padding: 12px 16px;
+      color: var(--text-500); font-weight: 600; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border);
+    }
+    .activity-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-300);
+    }
+    .activity-table tr:last-child td { border-bottom: none; }
+    .activity-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .activity-table td:first-child { color: var(--text-100); font-weight: 500; }
+
+    .source-pill {
+      display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase;
+    }
+    .pill-faq { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); color: #4ade80; }
+    .pill-ai  { background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25); color: #93c5fd; }
+
+    .rating-badge { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; border: 1px solid transparent; }
+    .rating-up   { color: #4ade80; border-color: rgba(74, 222, 128, 0.3); background: rgba(74, 222, 128, 0.1); }
+    .rating-down { color: #f87171; border-color: rgba(248, 113, 113, 0.3); background: rgba(248, 113, 113, 0.1); }
+    .rating-none { color: var(--text-500); }
+
+    /* ── Empty State ── */
+    .empty-state {
+      text-align: center; padding: 60px 20px;
+      color: var(--text-500); font-size: 0.9rem;
+    }
+    .empty-state svg { width: 48px; height: 48px; opacity: 0.5; margin-bottom: 16px; color: var(--text-500); }
+    .empty-state p { margin-top: 8px; line-height: 1.5; }
+
+    /* ── Clear Button ── */
+    .clear-data-btn {
+      padding: 7px 14px; background: transparent;
+      border: 1px solid rgba(239,68,68,0.4); border-radius: 6px;
+      color: #f87171; font-size: 0.75rem; font-family: inherit; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .clear-data-btn:hover { background: rgba(239,68,68,0.1); }
+
+    /* ── Refresh ── */
+    .refresh-time { font-size: 0.72rem; color: var(--text-500); }
+
+    /* ── Animation ── */
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .kpi-card, .chart-card, .table-card { animation: fadeIn 0.4s ease both; }
+    .kpi-card:nth-child(2) { animation-delay: 0.05s; }
+    .kpi-card:nth-child(3) { animation-delay: 0.10s; }
+    .kpi-card:nth-child(4) { animation-delay: 0.15s; }
+    
+    /* ── Custom Scrollbar ── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--navy-900); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: var(--navy-800); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--navy-700); }
+  </style>
+</head>
+<body>
+<!-- Admin Login Overlay -->
+<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--navy-950); z-index:9999; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px;">
+  <h2 style="color:var(--text-100); font-weight:500; margin-bottom: 10px;">Admin Girişi</h2>
+  <p id="loginError" style="color:#f87171; font-size:0.85rem; display:none;">Hatalı kullanıcı adı veya şifre.</p>
+  <input type="text" id="adminUsername" placeholder="Kullanıcı Adı" style="padding:12px 16px; border-radius:8px; border:1px solid var(--border); background:var(--navy-900); color:var(--text-100); width:280px; outline:none;">
+  <input type="password" id="adminPassword" placeholder="Şifre" style="padding:12px 16px; border-radius:8px; border:1px solid var(--border); background:var(--navy-900); color:var(--text-100); width:280px; outline:none;">
+  <button id="loginBtn" style="padding:12px 24px; border-radius:8px; background:var(--gold-500); color:var(--navy-950); font-weight:600; border:none; cursor:pointer; width:280px; margin-top:10px;">Giriş Yap</button>
+</div>
+
+<div class="page" id="dashboardPage" style="display:none;">
+
+  <!-- Header -->
+  <header class="dash-header">
+    <div class="dash-title-group">
+      <div class="dash-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+      </div>
+      <div>
+        <h1 class="dash-title">Analitik Dashboard</h1>
+        <p class="dash-sub">BankBot Kurumsal Raporlama Paneli</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="refresh-time" id="refreshTime"></span>
+      <button class="back-btn" onclick="window.location.href='index.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Asistana Dön
+      </button>
+    </div>
+  </header>
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid" id="kpiGrid">
+    <div class="kpi-card blue">
+      <div class="kpi-header">
+        <div class="kpi-label">Toplam Etkileşim</div>
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      </div>
+      <div class="kpi-value" id="kpiTotal">0</div>
+      <div class="kpi-sub" id="kpiToday">Bugün: 0 işlem</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-header">
+        <div class="kpi-label">Veritabanı Başarısı</div>
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+      </div>
+      <div class="kpi-value" id="kpiFaqRate">0%</div>
+      <div class="kpi-sub">SSS Motoru tarafından karşılanan</div>
+    </div>
+    <div class="kpi-card gold">
+      <div class="kpi-header">
+        <div class="kpi-label">Müşteri Memnuniyeti</div>
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+      </div>
+      <div class="kpi-value" id="kpiSatisfaction">-%</div>
+      <div class="kpi-sub" id="kpiFeedbackCount">0 değerlendirme alındı</div>
+    </div>
+    <div class="kpi-card cyan">
+      <div class="kpi-header">
+        <div class="kpi-label">Yapay Zeka Yönlendirmesi</div>
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+      </div>
+      <div class="kpi-value" id="kpiAiRate">0%</div>
+      <div class="kpi-sub">Genişletilmiş bilgi tabanı kullanımı</div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-row">
+    <!-- Donut: FAQ vs AI -->
+    <div class="chart-card">
+      <div class="chart-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+        Sistem Yanıt Kaynağı Dağılımı
+      </div>
+      <div class="donut-wrap">
+        <canvas class="donut-canvas" id="donutCanvas" width="140" height="140"></canvas>
+        <div class="donut-legend" id="donutLegend"></div>
+      </div>
+    </div>
+
+    <!-- Bar: Categories -->
+    <div class="chart-card">
+      <div class="chart-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Popüler İşlem Kategorileri
+      </div>
+      <div class="bar-list" id="barList">
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+          <p>Kategori verisi bulunmuyor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity Table -->
+  <div class="table-card">
+    <div class="table-header">
+      <div class="chart-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        Son Müşteri Etkileşimleri
+      </div>
+      <button class="clear-data-btn" id="clearDataBtn">Verileri Temizle</button>
+    </div>
+    <div id="tableContainer" style="max-height: 450px; overflow-y: auto; padding-right: 10px;">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <p>Henüz etkileşim kaydedilmedi.</p>
+        <p style="font-size:0.8rem; margin-top:4px;"><a href="index.html">Dijital Asistan</a> üzerinden işlem başlattığınızda burada listelenecektir.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+let authToken = "";
+
+async function attemptLogin() {
+  const user = document.getElementById('adminUsername').value;
+  const pwd = document.getElementById('adminPassword').value;
+  const token = btoa(user + ":" + pwd); // Base64 encoding for Basic Auth
+
+  const res = await fetch("http://localhost:4000/api/analytics", {
+    headers: { 'Authorization': `Basic ${token}` }
+  });
+  if (res.ok) {
+    authToken = token;
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('dashboardPage').style.display = 'block';
+    initDashboard(); // Load data
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+document.getElementById('loginBtn').addEventListener('click', attemptLogin);
+document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+    if(e.key === 'Enter') attemptLogin();
+});
+document.getElementById('adminUsername').addEventListener('keypress', (e) => {
+    if(e.key === 'Enter') attemptLogin();
+});
+
+// ── Veri Okuma ────────────────────────────────
+async function getAnalyticsData() {
+  let messages = [];
+  try {
+    const res = await fetch("http://localhost:4000/api/analytics", {
+      headers: { 'Authorization': `Basic ${authToken}` }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      messages = data.chats.map(chat => ({
+        question: chat.user_message,
+        source: "ai",
+        category: "Diğer İşlemler",
+        msgId: chat.id.toString(),
+        timestamp: new Date(chat.timestamp.replace(" ", "T") + "Z").getTime(),
+        feedback: chat.feedback
+      }));
+    } else {
+      console.error("Yetkisiz erişim veya hata", res.status);
+    }
+  } catch (err) {
+    console.error("Backend analytics failed", err);
+  }
+  const feedbacks = messages.filter(m => m.feedback).map(m => ({ rating: m.feedback }));
+  return { messages, feedbacks };
+}
+
+// ── Hesaplamalar ──────────────────────────────
+function computeStats({ messages, feedbacks }) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const todayMsgs = messages.filter(e => e.timestamp >= today.getTime());
+
+  const faqMsgs = messages.filter(e => e.source === "faq");
+  const aiMsgs  = messages.filter(e => e.source === "ai");
+
+  const positiveFb = feedbacks.filter(e => e.rating === "up");
+  const satisfaction = feedbacks.length > 0
+    ? Math.round((positiveFb.length / feedbacks.length) * 100)
+    : null;
+
+  // Kategori sayımı
+  const catMap = {};
+  messages.forEach(m => {
+    const cat = m.category || "Diğer İşlemler";
+    catMap[cat] = (catMap[cat] || 0) + 1;
+  });
+  const categories = Object.entries(catMap)
+    .sort((a,b) => b[1]-a[1])
+    .slice(0, 6);
+
+  return {
+    total: messages.length,
+    todayCount: todayMsgs.length,
+    faqCount: faqMsgs.length,
+    aiCount: aiMsgs.length,
+    faqRate: messages.length > 0 ? Math.round(faqMsgs.length / messages.length * 100) : 0,
+    aiRate:  messages.length > 0 ? Math.round(aiMsgs.length  / messages.length * 100) : 0,
+    satisfaction,
+    feedbackTotal: feedbacks.length,
+    categories,
+    recent: messages, // Sınır kaldırıldı, tüm sorular listelenecek
+    feedbacks
+  };
+}
+
+// ── KPI Render ────────────────────────────────
+function renderKPIs(stats) {
+  document.getElementById("kpiTotal").textContent        = stats.total;
+  document.getElementById("kpiToday").textContent        = `Bugün: ${stats.todayCount} işlem`;
+  document.getElementById("kpiFaqRate").textContent      = stats.faqRate + "%";
+  document.getElementById("kpiAiRate").textContent       = stats.aiRate + "%";
+  document.getElementById("kpiSatisfaction").textContent = stats.satisfaction !== null ? stats.satisfaction + "%" : "-";
+  document.getElementById("kpiFeedbackCount").textContent= `${stats.feedbackTotal} müşteri değerlendirmesi`;
+}
+
+// ── Donut Chart ───────────────────────────────
+function renderDonut(stats) {
+  const canvas = document.getElementById("donutCanvas");
+  const ctx    = canvas.getContext("2d");
+  const cx = 70, cy = 70, r = 58, inner = 38;
+
+  const total = stats.faqCount + stats.aiCount || 1;
+  const slices = [
+    { label: "Veritabanı (SSS)", value: stats.faqCount, color: "#22c55e" },
+    { label: "Bilgi Tabanı (AI)", value: stats.aiCount,  color: "#d4a853" },
+  ];
+
+  ctx.clearRect(0,0,140,140);
+  let startAngle = -Math.PI / 2;
+
+  slices.forEach(slice => {
+    const angle = (slice.value / total) * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, startAngle, startAngle + angle);
+    ctx.closePath();
+    ctx.fillStyle = slice.color;
+    ctx.fill();
+    startAngle += angle;
+  });
+
+  // Ortadaki delik
+  ctx.beginPath();
+  ctx.arc(cx, cy, inner, 0, 2*Math.PI);
+  ctx.fillStyle = "#0d1f3c"; // navy-800 or 900 depending on background
+  ctx.fill();
+
+  // Ortada toplam
+  ctx.fillStyle = "#f1f5f9";
+  ctx.font = "bold 16px Inter, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(total, cx, cy);
+
+  // Legend
+  const legend = document.getElementById("donutLegend");
+  legend.innerHTML = slices.map(s => `
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${s.color}"></span>
+      <span style="color:var(--text-300)">${s.label}</span>
+      <strong style="margin-left:auto;color:var(--text-100)">${s.value}</strong>
+    </div>
+  `).join("");
+}
+
+// ── Bar Chart ─────────────────────────────────
+function renderBars(stats) {
+  const container = document.getElementById("barList");
+  if (!stats.categories.length) {
+    container.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg><p>Kategori verisi bulunmuyor.</p></div>`;
+    return;
+  }
+  const max = stats.categories[0][1];
+  const colors = ["#d4a853", "#e0bc74", "#2563eb", "#3b82f6", "#22c55e", "#0ea5e9"];
+
+  container.innerHTML = stats.categories.map(([cat, count], i) => `
+    <div class="bar-item">
+      <div class="bar-header">
+        <span class="bar-label">${cat}</span>
+        <span class="bar-count">${count}</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${Math.round(count/max*100)}%;background:${colors[i%colors.length]}"></div>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ── Activity Table ────────────────────────────
+function renderTable(stats) {
+  const container = document.getElementById("tableContainer");
+  if (!stats.recent.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <p>Henüz etkileşim kaydedilmedi.</p>
+        <p style="font-size:0.8rem; margin-top:4px;"><a href="index.html">Dijital Asistan</a> üzerinden işlem başlattığınızda burada listelenecektir.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>Soru Tanımı</th>
+          <th>Yanıt Kaynağı</th>
+          <th>Sınıflandırma</th>
+          <th>Müşteri Dönüşü</th>
+          <th>Zaman Damgası</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${stats.recent.map(m => {
+          const rating = m.feedback;
+          const ratingHtml = rating === "up"
+            ? '<span class="rating-badge rating-up">Olumlu</span>'
+            : rating === "down"
+            ? '<span class="rating-badge rating-down">Olumsuz</span>'
+            : '<span class="rating-badge rating-none">Veri Yok</span>';
+
+          const time = new Date(m.timestamp).toLocaleTimeString("tr-TR", {hour:"2-digit",minute:"2-digit"});
+          const question = m.question ? m.question.slice(0,60) + (m.question.length>60?"…":"") : "Bilinmeyen Sorgu";
+
+          return `
+            <tr>
+              <td>${escHtml(question)}</td>
+              <td><span class="source-pill ${m.source==="faq"?"pill-faq":"pill-ai"}">${m.source==="faq"?"SSS":"AI Model"}</span></td>
+              <td>${escHtml(m.category||"-")}</td>
+              <td>${ratingHtml}</td>
+              <td>${time}</td>
+            </tr>`;
+        }).join("")}
+      </tbody>
+    </table>`;
+}
+
+function escHtml(t) {
+  return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+// ── Zaman ─────────────────────────────────────
+function updateRefreshTime() {
+  document.getElementById("refreshTime").textContent =
+    "Son Senkronizasyon: " + new Date().toLocaleTimeString("tr-TR");
+}
+
+// ── Clear Data ────────────────────────────────
+document.getElementById("clearDataBtn").addEventListener("click", () => {
+  if (confirm("Tüm analitik veriler kalıcı olarak silinecektir. Onaylıyor musunuz?")) {
+    localStorage.removeItem(ANALYTICS_KEY);
+    renderAll();
+  }
+});
+
+// ── Ana Render ────────────────────────────────
+async function renderAll() {
+  const { messages, feedbacks } = await getAnalyticsData();
+  const stats = computeStats({messages, feedbacks});
+  renderKPIs(stats);
+  renderDonut(stats);
+  renderBars(stats);
+  renderTable(stats);
+  updateRefreshTime();
+}
+
+// İlk render + otomatik yenileme (30 saniye) (Artık login sonrasında tetikleniyor)
+function initDashboard() {
+  renderAll();
+  setInterval(renderAll, 30000);
+}
+</script>
+</body>
+</html>

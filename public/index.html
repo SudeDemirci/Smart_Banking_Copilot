@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BankBot – Kurumsal Müşteri Asistanı</title>
+  <meta name="description" content="BankBot, bankacılık sorularınızı yapay zeka ile anında yanıtlayan kurumsal müşteri hizmetleri asistanıdır." />
+  <link rel="stylesheet" href="style.css?v=3" />
+</head>
+<body>
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="bank-logo">
+        <div class="logo-icon">
+          <!-- Bank building icon -->
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="12" width="24" height="2" fill="#D4A853"/>
+            <rect x="4" y="14" width="2" height="10" fill="#D4A853" opacity=".7"/>
+            <rect x="8" y="14" width="2" height="10" fill="#D4A853" opacity=".7"/>
+            <rect x="13" y="14" width="2" height="10" fill="#D4A853" opacity=".7"/>
+            <rect x="18" y="14" width="2" height="10" fill="#D4A853" opacity=".7"/>
+            <rect x="22" y="14" width="2" height="10" fill="#D4A853" opacity=".7"/>
+            <rect x="2" y="24" width="24" height="2" fill="#D4A853"/>
+            <polygon points="14,2 2,12 26,12" fill="#D4A853"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">BankBot</span>
+          <span class="logo-tagline">Dijital Asistan</span>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Menüyü kapat">✕</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <p class="nav-label">Hızlı Erişim</p>
+
+      <button class="quick-btn" data-msg="Hesap açmak için ne gerekiyor?" id="btn-hesap">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="#94a3b8" stroke-width="1.5"/><path d="M1 6h14" stroke="#94a3b8" stroke-width="1.5"/><rect x="3" y="9" width="3" height="1.5" rx=".75" fill="#94a3b8"/></svg>
+        Hesap İşlemleri
+      </button>
+
+      <button class="quick-btn" data-msg="Kredi başvurusu nasıl yapılır?" id="btn-kredi">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#94a3b8" stroke-width="1.5"/><path d="M8 4.5v7M5.5 6.5C5.5 5.4 6.6 4.5 8 4.5s2.5.9 2.5 2c0 2-5 2-5 4 0 1.1 1.1 2 2.5 2s2.5-.9 2.5-2" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Kredi & Finansman
+      </button>
+
+      <button class="quick-btn" data-msg="ATM ve kart limitlerini öğrenmek istiyorum." id="btn-kart">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="#94a3b8" stroke-width="1.5"/><path d="M1 6h14" stroke="#94a3b8" stroke-width="1.5"/><rect x="3" y="9" width="4" height="1.5" rx=".75" fill="#94a3b8"/></svg>
+        Kart & ATM
+      </button>
+
+      <button class="quick-btn" data-msg="Döviz kurları ve faiz oranları hakkında bilgi alabilir miyim?" id="btn-doviz">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M3 10.5C3 8 5 6 8 6s5 2 5 4.5" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/><path d="M5.5 3.5h5M8 3.5v2" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/><path d="M3 12.5h10" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Döviz & Faiz
+      </button>
+
+      <button class="quick-btn" data-msg="Para transferi nasıl yapılır?" id="btn-transfer">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M10 5l3 3-3 3" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Para Transferi
+      </button>
+
+      <button class="quick-btn" data-msg="Mobil bankacılık uygulaması hakkında bilgi alabilir miyim?" id="btn-mobil">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="4" y="1" width="8" height="14" rx="1.5" stroke="#94a3b8" stroke-width="1.5"/><rect x="6.5" y="12" width="3" height="1" rx=".5" fill="#94a3b8"/></svg>
+        Mobil Bankacılık
+      </button>
+
+      <button class="quick-btn" data-msg="Sigorta ürünleri hakkında bilgi almak istiyorum." id="btn-sigorta">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L2 4v4c0 3.3 2.5 6.2 6 7 3.5-.8 6-3.7 6-7V4L8 1.5Z" stroke="#94a3b8" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        Sigorta & BES
+      </button>
+
+      <button class="quick-btn" data-msg="Yatırım araçları ve fonlar hakkında bilgi verir misin?" id="btn-yatirim">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><polyline points="1,12 5,8 9,10 15,4" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="11,4 15,4 15,8" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Yatırım
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="dashboard.html" class="dashboard-link" id="dashboardLink">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="#94a3b8" stroke-width="1.5"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="#94a3b8" stroke-width="1.5"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="#94a3b8" stroke-width="1.5"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="#94a3b8" stroke-width="1.5"/></svg>
+        Analitik Dashboard
+      </a>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>Sistem Aktif · 7/24</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ── Main ── -->
+  <main class="chat-main" id="chatMain">
+
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-title">
+        <div class="bot-avatar-sm">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="5" width="12" height="9" rx="2" stroke="#D4A853" stroke-width="1.5"/>
+            <path d="M6 9h6M6 11.5h4" stroke="#D4A853" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M9 5V3" stroke="#D4A853" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="9" cy="2.5" r=".8" fill="#D4A853"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="topbar-name">BankBot</h1>
+          <p class="topbar-status"><span class="pulse"></span>Çevrimiçi</p>
+        </div>
+        <span class="topbar-divider">Kurumsal Müşteri Hizmetleri</span>
+      </div>
+      <button class="clear-btn" id="clearBtn">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5 3.5V2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1M11.5 3.5l-.7 8a.5.5 0 0 1-.5.5H3.7a.5.5 0 0 1-.5-.5l-.7-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Temizle
+      </button>
+    </header>
+
+    <!-- Messages -->
+    <section class="messages" id="messages" aria-live="polite">
+      <div class="message bot-msg" id="welcomeMsg">
+        <div class="avatar">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="#D4A853" stroke-width="1.4"/><path d="M5 8h6M5 10.5h4" stroke="#D4A853" stroke-width="1.4" stroke-linecap="round"/><path d="M8 4V2.5" stroke="#D4A853" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="bubble">
+          <p><strong>BankBot</strong>'a hoş geldiniz.</p>
+          <p style="margin-top:8px;color:#64748b;font-size:.85rem;">Size aşağıdaki konularda bilgi sunabilirim:</p>
+          <ul class="welcome-list">
+            <li>Hesap açma ve kapatma işlemleri</li>
+            <li>Kredi ve finansman başvuruları</li>
+            <li>Kart ve ATM limit bilgileri</li>
+            <li>Döviz kurları ve mevduat faizleri</li>
+            <li>Havale, EFT ve uluslararası transfer</li>
+            <li>Mobil bankacılık ve dijital hizmetler</li>
+          </ul>
+          <p style="margin-top:10px;color:#64748b;font-size:.83rem;">Sorunuzu yazın veya sol menüden bir konu seçin.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Input -->
+    <footer class="input-area">
+      <div class="input-wrapper">
+        <textarea
+          id="userInput"
+          rows="1"
+          placeholder="Sorunuzu buraya yazın..."
+          aria-label="Mesaj"
+          maxlength="1000"
+        ></textarea>
+        <button class="send-btn" id="sendBtn" aria-label="Gönder" disabled>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M14 2L7 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 2L9.5 14L7 9L2 6.5L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <p class="disclaimer">Bu sistem yalnızca bilgilendirme amaçlıdır. Kesin bilgi için lütfen şubenizle iletişime geçin. · Çağrı Merkezi: 444 00 00</p>
+    </footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js?v=14"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+================================================================
+BANKBOT - BANKA BİLGİ TABANASI
+Son güncelleme: Eylül 2026
+Bu dosyaya bankanın tüm bilgilerini ekleyin.
+Gemini bu dosyayı okuyarak soruları cevaplayacak.
+Yeni bilgi eklemek için bu dosyayı düzenleyin — kod değiştirmeye gerek yok!
+
+================================================================
+1. BANKA GENEL BİLGİLER
+Banka Adı: BankBot A.Ş.
+Kuruluş: 1985
+Genel Müdürlük: İstanbul, Levent
+Çağrı Merkezi: 444 00 00 (7/24)
+Web Sitesi: www.bankbot.com.tr
+E-posta: musteri@bankbot.com.tr
+SWIFT Kodu: BNKBTRXX
+
+================================================================
+2. ŞUBE VE ATM BİLGİLERİ (GENEL)
+ÇALIŞMA SAATLERİ
+- Hafta içi (Pzt-Cuma): 09:00 - 17:30
+- Cumartesi: Kapalı
+- Pazar: Kapalı
+- AVM şubeleri: 10:00 - 22:00 (7 gün)
+ŞUBELER
+- İstanbul Levent (Merkez): Büyükdere Cad. No:1, 0212 000 00 00
+- İstanbul Kadıköy: Moda Cad. No:45, 0216 000 00 01
+- Ankara Kızılay: Atatürk Bul. No:10, 0312 000 00 02
+- İzmir Konak: Cumhuriyet Bul. No:20, 0232 000 00 03
+ATM
+- Türkiye genelinde 500+ ATM
+- Yakın ATM: bankbot.com.tr/atm-bul
+- Ortak ATM ağı: BKM üyesi tüm ATM'ler
+
+================================================================
+3. HESAP ÜRÜNLERI
+VADESİZ HESAP
+- Türk Lirası, USD, EUR, GBP cinsinden açılabilir
+- Minimum bakiye: Yok
+- Aylık ücret: Yok
+- Gerekli belgeler: Nüfus cüzdanı, adres belgesi (son 3 ay)
+- Açılış: Şube veya mobil uygulama (5 dakika)
+VADELİ HESAP (Güncel Faiz Oranları - Eylül 2026)
+- 1 aylık: %42 yıllık brüt
+- 3 aylık: %45 yıllık brüt
+- 6 aylık: %48 yıllık brüt
+- 12 aylık: %46 yıllık brüt
+- Minimum tutar: 1.000 TL
+- Not: Faizler değişkendir, güncel oranlar için şubeye başvurun
+ALTIN HESABI
+- Gram bazlı altın alım-satımı
+- Minimum: 0.1 gram
+- Depolama ücreti: Yok
+- Fiziksel teslim: Mümkün (şubeden)
+
+================================================================
+4. KREDİ ÜRÜNLERİ
+İHTİYAÇ KREDİSİ
+- Vade: 6 - 84 ay
+- Faiz: Aylık %3.20'den başlayan (değişken)
+- Maksimum tutar: 500.000 TL
+- Gerekli: Nüfus cüzdanı, 3 aylık maaş bordrosu
+- Başvuru: Mobil uygulama, internet bankacılığı veya şube
+- Onay süresi: Dakikalar içinde (dijital başvurularda)
+KONUT KREDİSİ
+- Vade: 12 - 120 ay (10 yıl)
+- Faiz: Aylık %3.50'den başlayan (değişken)
+- Maksimum: Konut değerinin %80'i
+- Minimum peşinat: %20
+- Gerekli belgeler: Kimlik, gelir belgesi, tapu fotokopisi, ekspertiz
+TAŞIT KREDİSİ
+- Vade: 12 - 60 ay
+- Faiz: Aylık %3.10'dan başlayan (değişken)
+- Yeni araç: Araç değerinin %80'ine kadar
+- İkinci el araç: Araç değerinin %70'ine kadar (araç 5 yaşından küçük)
+- Gerekli: Kimlik, gelir belgesi, araç faturası/ekspertizi
+KREDİ KARTI
+- Minimum gelir: Net 15.000 TL/ay
+- Minimum çalışma süresi: 6 ay
+- Tür: Visa, Mastercard, Troy
+- Başvuru: Mobil uygulama veya şube
+
+================================================================
+5. KART VE ATM
+KART ÇEŞİTLERİ
+- Classic Kart: 0-15.000 TL gelir için
+- Gold Kart: 15.000-50.000 TL gelir için, 0.5 puan kazanımı
+- Platinum Kart: 50.000+ TL gelir için, 1 puan kazanımı, havalimanı lounge
+LİMİTLER
+- ATM günlük çekim: 5.000 TL (artırılabilir, maks. 15.000 TL)
+- ATM tek çekim: 2.000 TL
+- POS günlük harcama: 25.000 TL
+- Online harcama: 10.000 TL (artırılabilir)
+- Yurt dışı ATM çekim: 3.000 TL/gün
+KART TESLİMAT
+- Standart: 3-5 iş günü (adrese teslim)
+- Acil kart: Aynı gün şubeden
+KAYIP/ÇALINTI
+- Anında blokaj: Mobil uygulama veya 444 00 00
+- Yeni kart: 3-5 iş günü
+
+================================================================
+6. PARA TRANSFERİ
+HAVALE (Aynı Banka)
+- Süre: Anlık
+- Ücret: Ücretsiz
+- Limit: 500.000 TL/işlem
+EFT (Farklı Banka)
+- Süre: Aynı gün (mesai: 09:00-17:30)
+- Ücret: 10 TL (0-10.000 TL), 25 TL (10.001 TL üzeri)
+- Limit: 1.000.000 TL/gün
+FAST / ANLIQ ÖDEME
+- Süre: 7/24 anlık
+- Ücret: 5 TL
+- Limit: 150.000 TL/işlem
+SWIFT (Yurt Dışı)
+- Süre: 1-3 iş günü
+- Ücret: Minimum 25 USD
+- Gerekli bilgiler: IBAN, SWIFT/BIC kodu, alıcı adı-adresi
+- Kanal: Şube veya internet bankacılığı
+
+================================================================
+7. DİJİTAL BANKACILIK
+MOBİL UYGULAMA
+- iOS: App Store → "BankBot Mobil" (iOS 14+)
+- Android: Google Play → "BankBot Mobil" (Android 9+)
+- Puan: 4.7/5 (125.000+ değerlendirme)
+YAPABİLECEKLERİNİZ
+- Hesap görüntüleme ve döküm
+- Para transferi (havale, EFT, FAST)
+- Fatura ödeme (elektrik, su, doğalgaz, internet)
+- Kredi başvurusu
+- Kart limit ve şifre işlemleri
+- Yatırım fonu alım-satımı
+- Altın alım-satımı
+- Çek/senet sorgulama
+İLK GİRİŞ
+1. TC kimlik no + müşteri numarasıyla kayıt
+2. SMS ile doğrulama
+3. 6 haneli şifre belirleme
+4. Biyometrik aktivasyon (opsiyonel)
+
+================================================================
+8. YATIRIM HİZMETLERİ
+YATIRIM FONLARI
+- Para Piyasası Fonu: Günlük getiri, çok düşük risk, minimum 10 TL
+- Tahvil Fonu (B Tipi): Sabit getiri, düşük risk
+- Karma Fon: Dengeli risk/getiri
+- Hisse Senedi Fonu (A Tipi): Yüksek potansiyel, yüksek risk
+HİSSE SENEDİ
+- BIST (Borsa İstanbul) üzerinden alım-satım
+- Komisyon: %0.1 + BSMV
+- Platform: Mobil uygulama veya internet bankacılığı
+TAHVIL / BONO
+- Hazine bonosu, devlet tahvili, özel sektör tahvili
+- İkincil piyasadan alım-satım mümkün
+EUROBOND
+- Risksiz döviz bazlı tahvil
+- Minimum: 1.000 USD
+- Vade: 2-30 yıl
+
+================================================================
+9. SİGORTA VE EMEKLİLİK
+BİREYSEL EMEKLİLİK (BES)
+- Devlet katkısı: Ödediğinizin %30'u
+- Maksimum katkı: Yıllık asgari ücretin %25'i
+- Vergi avantajı: Gelir vergisi matrahından indirim
+- Emeklilik: 56 yaş + 10 yıl sistem
+- Minimum katkı payı: 500 TL/ay
+- Başvuru: Şube veya mobil uygulama
+TAMAMLAYICI SAĞLIK SİGORTASI
+- Yaş aralığı: 0-65
+- Kapsam: Muayene, tetkik, ameliyat, hastane
+- Prim: Yaş ve plana göre 500-3.000 TL/yıl
+KONUT SİGORTASI
+- DASK (Zorunlu): 150-500 TL/yıl
+- Geniş kapsamlı: 300-1.500 TL/yıl
+ARAÇ SİGORTASI
+- Trafik (Zorunlu): Araç tipine göre
+- Kasko: Araç değerinin %1.5-3'ü/yıl
+
+================================================================
+10. SIKÇA SORULAN SORULAR
+S: Şifremi unuttum, ne yapmalıyım?
+C: Mobil uygulama → "Şifremi Unuttum" → SMS doğrulama ile sıfırlayabilirsiniz. Veya 444 00 00'ı arayın.
+S: Hesabıma yabancı para yatırılabilir mi?
+C: Evet, döviz hesabı açarak USD, EUR, GBP, CHF, JPY cinsinden para alabilirsiniz.
+S: Kredi başvurusu ne zaman sonuçlanır?
+C: Dijital başvurularda genellikle 5-15 dakika içinde sonuçlanır. Konut kredisi 3-5 iş günü sürebilir.
+S: Yurt dışında kartımı kullanabilir miyim?
+C: Evet. Visa/Mastercard logosu olan tüm yerlerde kullanılabilir. Yurt dışı kullanımı önceden mobil uygulamadan aktive etmeniz önerilir. İşlem ücreti: %1.5 + 2 USD.
+S: IBAN numaram nerede?
+C: Mobil uygulama → Hesaplarım → Hesap seçin → IBAN bilgisi görünür.
+S: Otomatik ödeme nasıl kurulur?
+C: Mobil uygulama → İşlemler → Otomatik Ödeme → Fatura kurumu seçin → IBAN veya abone no girin.
+
+================================================================
+11. EVLİLİK VE ÇEYİZ KREDISI
+Evlilik Kredisi
+- Vade: 12 - 36 ay
+- Faiz: Aylık %2.90'dan başlayan (Özel indirimli)
+- Maksimum tutar: 250.000 TL
+- Çeyiz Paketi Hediye: Beyaz eşya alışverişlerinde kredi kartinda %10 indirim.
+- Gerekli: Nufus cüzdan, gelir belgesi, evlenme cüzdan veya evlendirme dairesi randevu belgesi.
+
+================================================================
+12. ATM VE ŞUBE ÇALIŞMA SAATLERİ
+Şubeler: Hafta içi 09:00 - 17:00 (Öğle arası 12:30 - 13:30)
+ATMler: 7 gün 24 saat kesintisiz olarak hizmet vermektedir.
+Çağrı Merkezi: 7 gün 24 saat kesintisiz olarak 444 00 00 numarasından hizmet vermektedir.
