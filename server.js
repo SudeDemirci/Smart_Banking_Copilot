@@ -136,12 +136,33 @@ const SYSTEM_PROMPT_TEMPLATE = `Sen "BankBot" adında, Türk bankacılık sektö
 SADECE kullanıcının gönderdiği EN SON soruya cevap ver. Geçmiş mesajlar sadece sohbetin akışını anlamak içindir.
 
 SİSTEM KURALLARI VE BİLGİ KULLANIMI:
-1. Kredi faizleri, limitler, kampanyalar, banka şube bilgileri ve rakamsal veriler söz konusu olduğunda SADECE aşağıdaki "İLGİLİ BANKA BİLGİLERİ" kısmını kullan. Eğer sorulan spesifik veri bu metinde yoksa, ASLA uydurma ve "Bu konuda güncel bilgi için şubenizi arayın" de.
-2. Ancak, "Müşteri numarası nerede yazar", "IBAN nedir", "EFT ne kadar sürer", "Şifremi unuttum genel prosedürü nedir" gibi GENEL BANKACILIK İŞLEYİŞİ ve mantığı gerektiren konularda, eğer bilgi metinde yoksa kendi genel yapay zeka bankacılık bilgini kullanarak müşteriye yardımcı ol. Müşteriyi cevapsız bırakma.
+1. Kullanıcının sorusuna cevap verirken SADECE aşağıdaki "İLGİLİ BANKA BİLGİLERİ" bölümündeki metni ve sana sunulan güncel kurları kullan. 
+2. Eğer kullanıcının sorusunun cevabı (örneğin döviz kuru, kredi faizi, limit) bu bilgilerin içinde YER ALIYORSA, tereddütsüz bir şekilde o bilgiyi kullanıcıya ver.
+3. Eğer sorulan spesifik veri bu metinde HİÇ YOKSA, uydurmak yerine "Bu konuda güncel bilgi için şubenizi arayın" de.
+4. "IBAN nedir", "EFT nedir" gibi genel bankacılık tanımlarında kendi genel yapay zeka bilgini kullanabilirsin. Müşteriyi cevapsız bırakma.
 
 İLGİLİ BANKA BİLGİLERİ (Sadece bankaya özel spesifik veriler için kullan):
 {KNOWLEDGE}
 `;
+
+// Authentication API Endpoint
+app.post('/api/login', (req, res) => {
+    const { customerId, password } = req.body;
+    
+    // Mülakat / Demo amaçlı hardcoded kullanıcı veritabanı
+    const users = {
+        "123456": { name: "Sudenaz Demirci", password: "123" },
+        "111222": { name: "Ahmet Yılmaz", password: "abc" },
+        "999888": { name: "Jüri Üyesi", password: "123" }
+    };
+
+    const user = users[customerId];
+    if (user && user.password === password) {
+        res.json({ success: true, name: user.name });
+    } else {
+        res.status(401).json({ success: false, error: "Hatalı müşteri numarası veya şifre!" });
+    }
+});
 
 // Chat API Endpoint
 app.post('/api/chat', async (req, res) => {
@@ -153,16 +174,35 @@ app.post('/api/chat', async (req, res) => {
             history = history.slice(-4);
         }
 
+        let liveCurrencyContext = "";
         const relevantContext = await searchKnowledgeVector(message);
-        const dynamicSystemPrompt = SYSTEM_PROMPT_TEMPLATE.replace("{KNOWLEDGE}", relevantContext);
+        const lowerMsg = message.toLowerCase();
+        if (lowerMsg.includes("dolar") || lowerMsg.includes("euro") || lowerMsg.includes("kur") || lowerMsg.includes("döviz") || lowerMsg.includes("usd")) {
+            try {
+                const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = await res.json();
+                const usdToTry = data.rates.TRY;
+                const eurToTry = (data.rates.TRY / data.rates.EUR).toFixed(2);
+                liveCurrencyContext = `\n\nSORU: Güncel döviz kurları, dolar, euro nedir?\nCEVAP: Güncel piyasa verilerine göre 1 USD = ${usdToTry} TL, 1 EUR = ${eurToTry} TL. (Kullanıcıya bu kurları sununuz)`;
+            } catch (e) {
+                console.error("Döviz verisi çekilemedi:", e);
+            }
+        }
+
+        const dynamicSystemPrompt = SYSTEM_PROMPT_TEMPLATE.replace("{KNOWLEDGE}", relevantContext + liveCurrencyContext);
+        console.log("--- SYSTEM PROMPT ---");
+        console.log(dynamicSystemPrompt);
+        console.log("---------------------");
 
         const formattedHistory = (history || []).map(msg => ({
             role: (msg.role === "bot" || msg.role === "model") ? "model" : "user",
             parts: [{ text: msg.text || msg.parts?.[0]?.text }]
         }));
         
-        const lastInHistory = formattedHistory.length > 0 ? formattedHistory[formattedHistory.length - 1].parts[0].text : null;
-        if (lastInHistory !== message) {
+        const lastInHistory = formattedHistory.length > 0 ? formattedHistory[formattedHistory.length - 1] : null;
+        if (lastInHistory && lastInHistory.role === "user" && lastInHistory.parts[0].text === message) {
+            // Already there
+        } else {
             formattedHistory.push({ role: "user", parts: [{ text: message }] });
         }
 

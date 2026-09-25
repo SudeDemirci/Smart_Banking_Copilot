@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BankBot – Kurumsal Müşteri Asistanı</title>
   <meta name="description" content="BankBot, bankacılık sorularınızı yapay zeka ile anında yanıtlayan kurumsal müşteri hizmetleri asistanıdır." />
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=15" />
 </head>
 <body>
 
@@ -90,7 +90,29 @@
     </div>
   </aside>
 
+  <!-- Login Screen -->
+  <div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--navy-950); z-index:9999; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:24px; transition: opacity 0.5s;">
+    <div style="background:var(--navy-900); padding:40px; border-radius:16px; border:1px solid var(--border); box-shadow:var(--shadow-lg); width:100%; max-width:400px; text-align:center;">
+      <div style="width:60px; height:60px; background:linear-gradient(135deg, var(--gold-400), var(--gold-300)); border-radius:12px; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(212,168,83,0.3);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--navy-950)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:32px; height:32px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h2 style="color:var(--text-100); font-weight:600; margin-bottom:8px; font-family:var(--font-serif); font-size:1.6rem;">BankBot'a Giriş</h2>
+      <p style="color:var(--text-300); font-size:0.9rem; margin-bottom:24px;">Lütfen müşteri numaranızı ve şifrenizi girin.</p>
+      
+      <input type="text" id="loginId" placeholder="Müşteri No (Örn: 123456)" style="width:100%; padding:14px 16px; border-radius:8px; border:1px solid var(--border-md); background:var(--navy-950); color:var(--text-100); outline:none; margin-bottom:16px; font-size:0.95rem;">
+      <input type="password" id="loginPass" placeholder="Şifre" style="width:100%; padding:14px 16px; border-radius:8px; border:1px solid var(--border-md); background:var(--navy-950); color:var(--text-100); outline:none; margin-bottom:24px; font-size:0.95rem;">
+      
+      <button id="doLoginBtn" style="width:100%; padding:14px; border-radius:8px; background:var(--gold-400); color:var(--navy-950); font-weight:600; font-size:1rem; border:none; cursor:pointer; transition:all 0.2s; box-shadow:0 4px 12px rgba(212,168,83,0.2);">Giriş Yap</button>
+      <p id="loginError" style="color:#ef4444; font-size:0.85rem; margin-top:12px; display:none;">Lütfen tüm alanları doldurun.</p>
+    </div>
+  </div>
+
   <div class="overlay" id="overlay"></div>
+
+  <!-- Dashboard Modal -->
+  <div id="dashboardModal" style="display:none; position:fixed; top:5%; left:5%; width:90%; height:90%; z-index:100; background:var(--navy-900); border:1px solid var(--gold-400); border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.8); overflow:hidden; flex-direction:column;">
+    <iframe src="dashboard.html" style="width:100%; height:100%; border:none; flex:1;"></iframe>
+  </div>
 
   <!-- ── Main ── -->
   <main class="chat-main" id="chatMain">
@@ -114,10 +136,19 @@
         </div>
         <span class="topbar-divider">Kurumsal Müşteri Hizmetleri</span>
       </div>
-      <button class="clear-btn" id="clearBtn">
-        <svg viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5 3.5V2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1M11.5 3.5l-.7 8a.5.5 0 0 1-.5.5H3.7a.5.5 0 0 1-.5-.5l-.7-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Temizle
-      </button>
+      <div style="display: flex; gap: 8px;">
+        <button class="clear-btn" id="themeToggleBtn" style="color: var(--text-300);" title="Temayı Değiştir">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px; height:16px;"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="clear-btn" id="exportBtn" style="color: var(--gold-400); border-color: rgba(212,168,83,0.3);">
+          <svg viewBox="0 0 24 24" fill="none" style="width:14px; height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sohbeti Kaydet
+        </button>
+        <button class="clear-btn" id="clearBtn">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5 3.5V2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1M11.5 3.5l-.7 8a.5.5 0 0 1-.5.5H3.7a.5.5 0 0 1-.5-.5l-.7-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Temizle
+        </button>
+      </div>
     </header>
 
     <!-- Messages -->
@@ -144,7 +175,17 @@
 
     <!-- Input -->
     <footer class="input-area">
+      <!-- Document Upload Preview -->
+      <div id="filePreview" style="display:none; align-items:center; gap:8px; background:var(--navy-800); border:1px solid var(--border-md); padding:6px 12px; border-radius:6px; width:max-content; margin-bottom:8px; font-size:0.8rem; color:var(--text-300);">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+        <span id="fileNameDisplay">belge.txt</span>
+        <button id="removeFileBtn" style="background:none; border:none; color:#ef4444; cursor:pointer; display:flex; padding:2px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
       <div class="input-wrapper">
+        <input type="file" id="fileInput" accept=".txt,.json,.csv" style="display:none;">
+        <button id="attachBtn" class="icon-btn" title="Belge Ekle (TXT)">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+        </button>
         <textarea
           id="userInput"
           rows="1"
@@ -160,6 +201,6 @@
     </footer>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="app.js?v=14"></script>
+  <script src="app.js?v=17"></script>
 </body>
 </html>

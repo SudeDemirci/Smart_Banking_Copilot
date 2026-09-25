@@ -29,6 +29,22 @@
       --font-sans:  'Inter', system-ui, sans-serif;
       --font-serif: 'Playfair Display', Georgia, serif;
     }
+    
+    :root[data-theme="light"] {
+      --navy-950:   #f8fafc;
+      --navy-900:   #ffffff;
+      --navy-800:   #f1f5f9;
+      --navy-700:   #e2e8f0;
+      --navy-600:   #cbd5e1;
+      --text-100:   #0f172a;
+      --text-300:   #334155;
+      --text-500:   #475569;
+      --text-700:   #64748b;
+      --border:     rgba(0, 0, 0, 0.08);
+      --border-md:  rgba(0, 0, 0, 0.12);
+      --gold-400:   #b47b1c;
+      --gold-300:   #9a6612;
+    }
 
     body {
       font-family: var(--font-sans);
@@ -252,7 +268,8 @@
   <p id="loginError" style="color:#f87171; font-size:0.85rem; display:none;">Hatalı kullanıcı adı veya şifre.</p>
   <input type="text" id="adminUsername" placeholder="Kullanıcı Adı" style="padding:12px 16px; border-radius:8px; border:1px solid var(--border); background:var(--navy-900); color:var(--text-100); width:280px; outline:none;">
   <input type="password" id="adminPassword" placeholder="Şifre" style="padding:12px 16px; border-radius:8px; border:1px solid var(--border); background:var(--navy-900); color:var(--text-100); width:280px; outline:none;">
-  <button id="loginBtn" style="padding:12px 24px; border-radius:8px; background:var(--gold-500); color:var(--navy-950); font-weight:600; border:none; cursor:pointer; width:280px; margin-top:10px;">Giriş Yap</button>
+  <button id="loginBtn" style="padding:12px 24px; border-radius:8px; background:var(--gold-400); color:var(--navy-950); font-weight:600; border:none; cursor:pointer; width:280px; margin-top:10px;">Giriş Yap</button>
+  <button onclick="if(window.parent) window.parent.document.getElementById('dashboardModal').style.display='none';" style="padding:10px 24px; border-radius:8px; background:transparent; color:var(--text-500); font-weight:500; border:1px solid var(--border-md); cursor:pointer; width:280px; transition:all 0.2s;">Geri Dön / İptal</button>
 </div>
 
 <div class="page" id="dashboardPage" style="display:none;">
@@ -274,7 +291,7 @@
     </div>
     <div class="header-actions">
       <span class="refresh-time" id="refreshTime"></span>
-      <button class="back-btn" onclick="window.location.href='index.html'">
+      <button class="back-btn" onclick="if(window.self !== window.top) { window.parent.document.getElementById('dashboardModal').style.display = 'none'; window.parent.closeSidebar(); } else { window.location.href='index.html'; }">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Asistana Dön
       </button>
@@ -625,6 +642,18 @@ function initDashboard() {
   renderAll();
   setInterval(renderAll, 30000);
 }
+// ── Theme Sync ────────────────────────────────
+function syncTheme() {
+  if (localStorage.getItem("bankbot_theme") === "light") {
+    document.documentElement.setAttribute("data-theme", "light");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+  }
+}
+syncTheme();
+window.addEventListener('storage', (e) => {
+  if (e.key === "bankbot_theme") syncTheme();
+});
 </script>
 </body>
 </html>
