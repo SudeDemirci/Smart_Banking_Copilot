@@ -8,11 +8,14 @@ This project is designed to simulate a modern banking chatbot. It uses Google's 
 
 ## Features
 
-- Custom RAG Implementation: Reads from local text databases, computes cosine similarity, and feeds verified context to the LLM.
-- Strict Safety Guidelines: Refuses to provide illegal investment advice and adheres to financial compliance rules.
-- Analytics Dashboard: A secure, basic auth protected administrative panel to monitor chat history, user feedback, and API metrics.
-- Resiliency: Implements exponential backoff and rate limiting to gracefully handle API quotas and server downtimes.
-- Markdown Support: Renders complex data such as insurance plans and pricing tables cleanly in the frontend.
+- **Document AI (Client-Side RAG)**: Users can attach `.txt` files directly in the chat. The system silently injects the document contents into the LLM context, allowing users to query, summarize, or analyze their specific files instantly.
+- **Dynamic UI Widgets**: Automatically renders real-time visual widgets (e.g., Live Currency Exchange Rates) inside chat bubbles based on user intent.
+- **Smart Follow-up Chips**: Context-aware, interactive suggestion buttons appear contextually depending on the conversation topic (e.g., mobile banking, loans, foreign exchange).
+- **Custom Backend RAG Implementation**: Reads from local text databases, computes cosine similarity, and feeds verified context to the LLM to avoid hallucinations.
+- **Admin Dashboard & Authentication**: A secure, backend-authenticated administrative panel (`/api/login`) to monitor chat history, user feedback, and API metrics.
+- **Theme Synchronization**: Seamless transition between dark and light modes, synchronized perfectly between the main UI and iframe dashboards via LocalStorage events.
+- **Strict Safety Guidelines**: Refuses to provide illegal investment advice and adheres to financial compliance rules.
+- **Resiliency**: Implements exponential backoff and rate limiting to gracefully handle API quotas and server downtimes.
 
 ## Tech Stack
 
