@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+.env
+.git
+.gitignore
+server.test.js
+README.md
+SUNUM_REHBERI.md
