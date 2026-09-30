@@ -6,6 +6,7 @@
   <title>BankBot – Kurumsal Müşteri Asistanı</title>
   <meta name="description" content="BankBot, bankacılık sorularınızı yapay zeka ile anında yanıtlayan kurumsal müşteri hizmetleri asistanıdır." />
   <link rel="stylesheet" href="style.css?v=15" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -137,6 +138,10 @@
         <span class="topbar-divider">Kurumsal Müşteri Hizmetleri</span>
       </div>
       <div style="display: flex; gap: 8px;">
+        <button class="clear-btn" id="logoutBtn" style="color: #ef4444; border-color: rgba(239,68,68,0.3);" title="Çıkış Yap">
+          <svg viewBox="0 0 24 24" fill="none" style="width:14px; height:14px;" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          Çıkış Yap
+        </button>
         <button class="clear-btn" id="themeToggleBtn" style="color: var(--text-300);" title="Temayı Değiştir">
           <svg viewBox="0 0 24 24" fill="none" style="width:16px; height:16px;"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -200,7 +205,26 @@
       <p class="disclaimer">Bu sistem yalnızca bilgilendirme amaçlıdır. Kesin bilgi için lütfen şubenizle iletişime geçin. · Çağrı Merkezi: 444 00 00</p>
     </footer>
   </main>
+
+  <!-- Voice Visualizer Overlay -->
+  <div id="voiceOverlay" class="voice-overlay">
+    <div class="voice-container">
+      <div class="voice-text">Sizi Dinliyorum...</div>
+      <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+      </div>
+      <button id="cancelVoiceBtn" class="voice-cancel-btn">İptal Et</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="app.js?v=17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js?v=18"></script>
 </body>
 </html>

@@ -919,3 +919,96 @@ textarea#userInput::placeholder { color: var(--text-700); }
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(212,168,83,0.3);
 }
+
+/* ============================================================
+   VOICE VISUALIZER OVERLAY (Siri / Assistant Style)
+   ============================================================ */
+.voice-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.85); /* Dark semi-transparent navy */
+  backdrop-filter: blur(12px); /* Glassmorphism blur */
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.voice-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.voice-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.voice-text {
+  color: var(--text-100);
+  font-size: 1.8rem;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 1px;
+  animation: pulseText 2s infinite ease-in-out;
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; text-shadow: 0 0 10px rgba(212, 168, 83, 0.5); }
+}
+
+/* Sound Waves */
+.waves {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 80px;
+}
+
+.wave {
+  width: 12px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--gold-300), var(--gold-500));
+  animation: bounce 1.2s infinite ease-in-out;
+  box-shadow: 0 0 15px rgba(212, 168, 83, 0.4);
+}
+
+.wave:nth-child(1) { animation-delay: -1.0s; height: 30px; }
+.wave:nth-child(2) { animation-delay: -0.8s; height: 50px; }
+.wave:nth-child(3) { animation-delay: -0.6s; height: 70px; background: linear-gradient(180deg, #60a5fa, #3b82f6); box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);}
+.wave:nth-child(4) { animation-delay: -0.4s; height: 50px; }
+.wave:nth-child(5) { animation-delay: -0.2s; height: 30px; }
+
+@keyframes bounce {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+.voice-cancel-btn {
+  margin-top: 20px;
+  padding: 10px 24px;
+  border-radius: 20px;
+  border: 1px solid var(--border-md);
+  background: transparent;
+  color: var(--text-300);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.voice-cancel-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border-color: #ef4444;
+}

@@ -291,12 +291,29 @@
     </div>
     <div class="header-actions">
       <span class="refresh-time" id="refreshTime"></span>
+      
+      <button id="aiReportBtn" style="display:flex; align-items:center; gap:8px; padding:9px 18px; background:rgba(99, 102, 241, 0.15); border:1px solid #6366f1; color:#818cf8; border-radius:8px; font-weight:600; cursor:pointer; transition:all 0.3s;" onmouseover="this.style.background='rgba(99, 102, 241, 0.25)'" onmouseout="this.style.background='rgba(99, 102, 241, 0.15)'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        ✨ YZ Raporu Al
+      </button>
+
       <button class="back-btn" onclick="if(window.self !== window.top) { window.parent.document.getElementById('dashboardModal').style.display = 'none'; window.parent.closeSidebar(); } else { window.location.href='index.html'; }">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Asistana Dön
       </button>
     </div>
   </header>
+
+  <!-- AI Executive Summary Panel (Hidden by default) -->
+  <div id="aiSummaryContainer" style="display:none; margin-bottom: 24px; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(15,23,42,0.8)); border: 1px solid rgba(99, 102, 241, 0.3); position: relative; overflow: hidden; box-shadow: 0 4px 30px rgba(99, 102, 241, 0.15);">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+      <h3 style="color:#818cf8; margin:0; font-family:var(--font-serif); font-size:1.3rem;">Yapay Zeka Yönetici Özeti</h3>
+    </div>
+    <div id="aiSummaryContent" style="color:var(--text-100); font-size:0.95rem; line-height:1.6; font-weight:400;">
+      <!-- Content will be injected here -->
+    </div>
+  </div>
 
   <!-- KPI Cards -->
   <div class="kpi-grid" id="kpiGrid">
@@ -381,7 +398,25 @@
     </div>
   </div>
 
-</div>
+  </div>
+
+  <!-- Live Agent Command Center Modal -->
+  <div id="liveAgentModal" style="display:none; position:fixed; bottom:20px; right:20px; width:350px; background:var(--navy-900); border:2px solid #22c55e; border-radius:12px; box-shadow:0 8px 32px rgba(34,197,94,0.3); z-index:9999; overflow:hidden; flex-direction:column;">
+      <div style="background:#22c55e; color:var(--navy-950); padding:12px; font-weight:bold; display:flex; justify-content:space-between; align-items:center;">
+          <span>👤 Canlı Destek Talebi</span>
+          <button onclick="document.getElementById('liveAgentModal').style.display='none'" style="background:none; border:none; color:var(--navy-950); cursor:pointer; font-size:1.2rem;">&times;</button>
+      </div>
+      <div id="liveAgentChat" style="padding:16px; height:250px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:0.85rem; color:var(--text-300); text-align:center;">Yeni bağlantı bekleniyor...</div>
+      </div>
+      <div style="padding:12px; border-top:1px solid var(--border); display:flex; gap:8px;">
+          <input type="text" id="liveAgentInput" placeholder="Müşteriye cevap yaz..." style="flex:1; background:var(--navy-950); border:1px solid var(--border-md); color:var(--text-100); padding:8px 12px; border-radius:6px; outline:none;">
+          <button id="liveAgentSend" style="background:#22c55e; color:var(--navy-950); border:none; padding:8px 16px; border-radius:6px; font-weight:bold; cursor:pointer;">Gönder</button>
+      </div>
+  </div>
+
+  </div>
+<script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
 <script>
 let authToken = "";
 
@@ -654,6 +689,111 @@ syncTheme();
 window.addEventListener('storage', (e) => {
   if (e.key === "bankbot_theme") syncTheme();
 });
+
+// ── Live Agent Socket Logic ───────────────────
+if (typeof io !== 'undefined') {
+    const socket = io("http://localhost:4000");
+    const liveAgentModal = document.getElementById("liveAgentModal");
+    const liveAgentChat = document.getElementById("liveAgentChat");
+    const liveAgentInput = document.getElementById("liveAgentInput");
+    const liveAgentSend = document.getElementById("liveAgentSend");
+
+    // Listen for incoming messages from Chatbot User
+    socket.on("dashboard_receive_msg", (data) => {
+        liveAgentModal.style.display = "flex";
+        
+        // Remove empty state message if it's there
+        if (liveAgentChat.innerHTML.includes("Yeni bağlantı bekleniyor...")) {
+            liveAgentChat.innerHTML = "";
+        }
+        
+        // Render user message
+        const msgDiv = document.createElement("div");
+        msgDiv.style.background = "rgba(255, 255, 255, 0.05)";
+        msgDiv.style.padding = "8px 12px";
+        msgDiv.style.borderRadius = "8px";
+        msgDiv.style.fontSize = "0.9rem";
+        msgDiv.style.alignSelf = "flex-start";
+        msgDiv.style.borderLeft = "3px solid var(--text-300)";
+        msgDiv.innerHTML = `<strong>Müşteri:</strong> ${escHtml(data.message)}`;
+        liveAgentChat.appendChild(msgDiv);
+        liveAgentChat.scrollTop = liveAgentChat.scrollHeight;
+    });
+
+    // Send reply to Chatbot User
+    function sendLiveReply() {
+        const text = liveAgentInput.value.trim();
+        if (!text) return;
+        
+        // Render agent message in dashboard
+        const msgDiv = document.createElement("div");
+        msgDiv.style.background = "rgba(34, 197, 94, 0.1)";
+        msgDiv.style.padding = "8px 12px";
+        msgDiv.style.borderRadius = "8px";
+        msgDiv.style.fontSize = "0.9rem";
+        msgDiv.style.alignSelf = "flex-end";
+        msgDiv.style.borderRight = "3px solid #22c55e";
+        msgDiv.innerHTML = `<strong>Sen:</strong> ${escHtml(text)}`;
+        liveAgentChat.appendChild(msgDiv);
+        liveAgentChat.scrollTop = liveAgentChat.scrollHeight;
+        
+        // Emit to server
+        socket.emit("live_agent_reply", { reply: text });
+        liveAgentInput.value = "";
+    }
+    
+    liveAgentSend.addEventListener("click", sendLiveReply);
+    liveAgentInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendLiveReply();
+    });
+
+    // ── AI Executive Summary Trigger ──
+    const aiReportBtn = document.getElementById("aiReportBtn");
+    const aiSummaryContainer = document.getElementById("aiSummaryContainer");
+    const aiSummaryContent = document.getElementById("aiSummaryContent");
+
+    if (aiReportBtn) {
+        aiReportBtn.addEventListener("click", async () => {
+            aiSummaryContainer.style.display = "block";
+            aiSummaryContent.innerHTML = `
+                <div style="display:flex; align-items:center; gap:8px; color:var(--text-300);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                    Yapay Zeka verileri okuyup rapor hazırlıyor, lütfen bekleyin...
+                </div>
+            `;
+            aiReportBtn.disabled = true;
+            aiReportBtn.style.opacity = "0.5";
+
+            try {
+                // Dashboard verilerini topla
+                const payload = {
+                    total: parseInt(document.getElementById("kpiTotal").innerText),
+                    faqRate: document.getElementById("kpiFaqRate").innerText,
+                    aiRate: document.getElementById("kpiAiRate").innerText,
+                    satisfaction: document.getElementById("kpiSatisfaction").innerText,
+                    issues: document.getElementById("barList").innerText // Barların metni
+                };
+
+                const res = await fetch("/api/analytics/ai-summary", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": "Bearer admin123" },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!res.ok) throw new Error("API Hatası");
+                const data = await res.json();
+                
+                aiSummaryContent.innerHTML = data.summary;
+            } catch (err) {
+                console.error(err);
+                aiSummaryContent.innerHTML = "<span style='color:#ef4444;'>Rapor oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.</span>";
+            } finally {
+                aiReportBtn.disabled = false;
+                aiReportBtn.style.opacity = "1";
+            }
+        });
+    }
+}
 </script>
 </body>
 </html>

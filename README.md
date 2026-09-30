@@ -1,49 +1,90 @@
-# Smart Banking Copilot
+# BankBot & Nexus BI - Kurumsal Yapay Zeka Çözümleri
 
-An enterprise-grade AI banking assistant leveraging Retrieval-Augmented Generation (RAG) to provide accurate, context-aware financial information and customer support. 
+![BankBot Banner](https://img.shields.io/badge/BankBot-Enterprise_AI-081428?style=for-the-badge&logo=google-gemini)
+![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=nodedotjs)
+![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite)
+![Jest](https://img.shields.io/badge/Jest-Tested-C21325?style=for-the-badge&logo=jest)
 
-## Overview
+**BankBot**, kurumsal bankacılık müşterileri için geliştirilmiş, **Google Gemini 2.5 Pro / 3.5 Flash** modelleriyle güçlendirilmiş entegre bir yapay zeka ve İş Zekası (BI) projesidir. Sistem, hem müşterilere 7/24 hizmet veren akıllı bir dijital asistan (Chatbot), hem de banka yöneticilerine anlık raporlama sunan bir **Yönetici Paneli (Nexus BI)** modüllerinden oluşur.
 
-This project is designed to simulate a modern banking chatbot. It uses Google's Gemini AI combined with a custom vector search implementation to ensure that the bot only answers specific banking questions (like interest rates and policies) based on verified local documents, avoiding hallucinations. General banking queries are handled dynamically using the model's core intelligence.
+---
 
-## Features
+## Öne Çıkan Özellikler
 
-- **Document AI (Client-Side RAG)**: Users can attach `.txt` files directly in the chat. The system silently injects the document contents into the LLM context, allowing users to query, summarize, or analyze their specific files instantly.
-- **Dynamic UI Widgets**: Automatically renders real-time visual widgets (e.g., Live Currency Exchange Rates) inside chat bubbles based on user intent.
-- **Smart Follow-up Chips**: Context-aware, interactive suggestion buttons appear contextually depending on the conversation topic (e.g., mobile banking, loans, foreign exchange).
-- **Custom Backend RAG Implementation**: Reads from local text databases, computes cosine similarity, and feeds verified context to the LLM to avoid hallucinations.
-- **Admin Dashboard & Authentication**: A secure, backend-authenticated administrative panel (`/api/login`) to monitor chat history, user feedback, and API metrics.
-- **Theme Synchronization**: Seamless transition between dark and light modes, synchronized perfectly between the main UI and iframe dashboards via LocalStorage events.
-- **Strict Safety Guidelines**: Refuses to provide illegal investment advice and adheres to financial compliance rules.
-- **Resiliency**: Implements exponential backoff and rate limiting to gracefully handle API quotas and server downtimes.
+### 1. NLP Destekli Müşteri Asistanı
+Geleneksel Sık Sorulan Sorular (SSS) botlarının aksine, doğrudan doğal dil işleyerek (NLP) bankacılık verilerini yorumlar. Kredi ve faiz hesaplamaları, kredi kartı başvuruları ve şube bilgileri gibi sorulara anında kurumsal dille cevap verir.
 
-## Tech Stack
+### 2. Anti-Fraud (Sahtekarlık Önleme) Güvenlik Duvarı
+Sistemdeki işlemleri analiz eder. Müşteri yüksek riskli veya sıra dışı meblağlı bir işlem talep ettiğinde, sistem işlemi dondurarak **Riskli İşlem** uyarısı verir ve ekranda 2 Faktörlü SMS doğrulama simülasyonu başlatır.
 
-- Backend: Node.js, Express.js
-- Database: SQLite3
-- AI Integration: Google GenAI SDK
-- Frontend: Vanilla JS, HTML, CSS, Marked.js
+### 3. Nexus BI - Akıllı Yönetici Paneli
+Banka yöneticileri için geliştirilmiş ve port 4001 üzerinde çalışan İş Zekası (BI) panelidir.
+- **Canlı Veri:** O an chatbot üzerinden yapılan konuşmaları, memnuniyet (Sentiment) analizini ve aktif müşteri sayısını gösterir.
+- **YZ Raporu Al:** Tek bir tıkla, o anki tüm banka metriklerini Gemini modeline analiz ettirerek "Üst Düzey Yönetici Özeti (Executive Summary)" çıkarır.
 
-## Installation
+### 4. Akıllı Kumbara (Oyunlaştırma)
+Müşteri sohbette "Ev almak istiyorum" veya "Araba birikimi" dediğinde, sistem niyeti anlar ve chat ekranında interaktif bir **İlerleme Çubuğu (Progress Bar)** widget'ı oluşturarak otomatik fon yönlendirmesi yapar.
 
-1. Clone the repository:
-   git clone https://github.com/SudeDemirci/Smart_Banking_Copilot.git
-   cd Smart_Banking_Copilot
+### 5. Resmi PDF Dekont Dökümü
+Müşterilerin banka ile yaptığı tüm görüşmeler, tek bir butonla banka logolu, resmi ve tarih damgalı bir PDF belgesine çevrilerek indirilebilir. Yasal log kaydı niteliği taşır.
 
-2. Install dependencies:
-   npm install
+### 6. Canlı Borsa ve Kripto Kurları API
+Sistem arka planda Proxy API aracılığıyla harici borsa servislerine bağlanarak anlık USD, EUR ve Kripto verilerini çeker.
 
-3. Configure environment variables:
-   Create a .env file in the root directory and add your Google API Key:
-   GEMINI_API_KEY=your_api_key_here
+---
 
-4. Start the server:
-   node server.js
+## Kullanılan Teknolojiler
 
-5. Access the application:
-   - Chatbot UI: http://localhost:4000
-   - Admin Dashboard: http://localhost:4000/dashboard.html
+- **Backend:** Node.js, Express.js
+- **Yapay Zeka:** Google Gemini SDK (@google/genai)
+- **Veritabanı:** SQLite3
+- **Frontend (UI):** Vanilla JavaScript, HTML5, CSS3 (Zero-Dependency)
+- **Gerçek Zamanlı İletişim:** Socket.IO
+- **Yazılım Testleri:** Jest, Supertest
+- **Araçlar:** html2pdf (PDF Çıktısı), Chart.js (Grafikler)
 
-## Security
+---
 
-The .env file and local SQLite databases are ignored by Git. Do not commit sensitive API keys.
+## Kurulum ve Çalıştırma
+
+### 1. Depoyu Klonlayın
+\`\`\`bash
+git clone https://github.com/SudeDemirci/bankbot-nexus.git
+cd bankbot-nexus
+\`\`\`
+
+### 2. Bağımlılıkları Yükleyin
+\`\`\`bash
+npm install
+\`\`\`
+
+### 3. Çevre Değişkenlerini Ayarlayın
+Proje kök dizinine bir \`.env\` dosyası oluşturun ve Gemini API anahtarınızı girin:
+\`\`\`env
+PORT=4000
+GEMINI_API_KEY=sizin_api_anahtariniz
+ADMIN_API_KEY=super_secret_admin_key_2026
+\`\`\`
+
+### 4. Sunucuyu Başlatın
+\`\`\`bash
+npm start
+\`\`\`
+- Chatbot Arayüzü: http://localhost:4000
+- Nexus BI Dashboard: Ayrı bir terminalde \`BI_Dashboard\` klasörüne gidip \`npx serve\` komutu ile başlatın (Genelde port 4001).
+
+### 5. Testleri Çalıştırın
+Sistemin güvenliğini ve API uçlarını test etmek için:
+\`\`\`bash
+npm test
+\`\`\`
+
+---
+
+## Güvenlik Uyarıları
+- Bu proje konsept ve sunum amaçlı geliştirilmiştir. 
+- Gerçek bankacılık sistemlerine entegre edilirken (Core Banking), simüle edilmiş verilerin REST/SOAP banka API'leri ile değiştirilmesi gerekmektedir.
+- \`x-admin-key\` başlığı olmadan Analytics API'sine dışarıdan erişilemez.
+
+---
+*Geliştirici: Sudenaz Demirci | 2026 Kurumsal Yazılım Staj Projesi*
